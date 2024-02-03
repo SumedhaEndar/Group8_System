@@ -1,0 +1,10 @@
+{% extends "webpages/base.html" %}
+{% block content %}
+    <h1>Trainer Signup</h1>
+    <form action="{% url 'trainer-signup' %}" method="POST"  enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Signup">
+    </form>
+    <p>Already registered! - <a href="#">Login Now</a><br></p>
+{% endblock content %}

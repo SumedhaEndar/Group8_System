@@ -1,0 +1,11 @@
+{% extends "webpages/base.html" %}
+
+{% block customCSS %}
+    {% load static %}
+    {% comment %} The link for your css files {% endcomment %}
+    {% comment %} <link rel="stylesheet" type="text/css" href="{% static 'webpages/css/thepage.css'%}"> {% endcomment %}
+{% endblock customCSS %}
+
+{% block content %}
+    <h1>Find a Gym</h1>
+{% endblock content %}

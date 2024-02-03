@@ -1,0 +1,12 @@
+admins/__pycache__/
+admins/migrations/__pycache__/
+Group8_System/__pycache__/
+Group8_System/migrations/__pycache__/
+trainers/__pycache__/
+trainers/migrations/__pycache__/
+members/__pycache__/
+members/migrations/__pycache__/
+users/__pycache__/
+users/migrations/__pycache__/
+webpages/__pycache__/
+webpages/migrations/__pycache__/
