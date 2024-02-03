@@ -1,0 +1,14 @@
+{% extends "admins/admin-base.html" %}
+
+{% block content %}
+    {% load static %}
+    <div class="admin-main-container">
+        <div class="admin-img">
+            <img src="{% static 'admins/images/admin.png' %}" alt="Admin Photo" class="admin-photo">
+        </div>
+        <div class="admin-info">
+            <p class="admin-name">Name: {{admin_name}}</p>
+            <p class="admin-id">Email: {{admin_email}}</p>
+        </div>
+    </div>
+{% endblock content %}

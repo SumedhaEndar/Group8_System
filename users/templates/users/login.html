@@ -1,12 +1,18 @@
 {% extends "webpages/base.html" %}
 {% block content %}
-    <h1>Login</h1>
-    <form action="{% url 'login' %}" method="POST">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" value="Login">
-    </form>
-    <p>Not yet registered!</p>
-    <a href="{% url 'member-signup' %}">Signup as Member</a><br>
-    <a href="{% url 'trainer-signup' %}">Signup as Trainer</a>
+    <div class="w-25 mx-auto mt-3 white-bg px-5 pb-4 rounded-4">
+        <div class="d-flex flex-column">
+            <h1 class="my-4">Login</h1>
+            <form action="{% url 'login' %}" method="POST">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <input type="submit" value="Login" class="mt-2 mb-4 btn btn-primary">
+            </form>
+            <div>
+                <p>Not yet registered!</p>
+                <a href="{% url 'member-signup' %}">Register as Member</a><br>
+                <a href="{% url 'trainer-signup' %}">Register as Trainer</a>
+            </div>
+        </div>
+    </div>
 {% endblock content %}

@@ -1,0 +1,51 @@
+{% extends "trainers/trainer-base.html" %}
+{% block content %}
+
+{% load static %}
+<div class="container text-center">
+    <div class="row">
+        <div class="col-lg-3" style="padding=10px; margin:20px;">
+            <form class="margintop"  method='POST'>
+                <button type="button" class="btn btn-primary btn-lg btn-block" style="font-size: 24px; padding: 20px; margin: 20px;" onclick="redirectToTrainerProgram()">Program</button>
+            </form>
+            <form class="margintop" method='POST'>
+                <button type="button" class="btn btn-primary btn-lg btn-block" style="font-size: 24px; padding: 20px; margin: 20px;" onclick="redirectToTrainerTimetable()">Timetable</button>
+            </form>
+            <form class="margintop" id="logoutForm" method='POST'>
+                <button type="button" class="btn btn-danger btn-lg btn-block" style="font-size: 24px; padding: 15px; margin: 20px;" onclick="logout()">Logout</button>
+            </form>
+        </div>
+        <div class="col-lg-6" style="padding:20px; margin-left:100px;">
+            <div class="card ">
+                <img src="{% static 'trainers/images/trainer.png' %}" class="card-img-top" alt="Trainer Image">
+            
+                <div class="card-body">
+                    <h5 class="card-title placeholder-glow">
+                        <span class="col-6" style="font-size:24px;">{{trainer_name}}</span>
+                    </h5>
+                    {% comment %} <p class="card-text">Some trainer message......</p> {% endcomment %}
+                    <ul class="list-group">
+                        <li class="list-group-item">AGE: {{age}}</li>
+                        <li class="list-group-item">BMI: {{bmi}}</li>
+                        <li class="list-group-item">BMR: {{bmr}} kcal/day</li>
+                        <li class="list-group-item">{{phone}}</li>
+                        <li class="list-group-item">{{email}}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% comment %} <script>
+    function logout() {
+        document.getElementById('logoutForm').submit();
+    }
+    function redirectToTrainerProgram() {
+        window.location.href = '{% url "trainerProgram" %}';
+    }
+    function redirectToTrainerTimetable() {
+        window.location.href = '{% url "trainerTimetable" %}';
+    }
+</script> {% endcomment %}
+{% endblock content %}

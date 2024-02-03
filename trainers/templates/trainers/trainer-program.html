@@ -1,0 +1,45 @@
+{% extends "trainers/trainer-base.html" %}
+{% block content %}
+
+{% load static %}
+<div class="jumbotron text-center">
+    <h1 style="font-weight: bold" class="yellow-font mb-5">FITNESS PROGRAM</h1>
+</div>
+<div class="container">
+    <div class="row justify-content-between">
+        <div class="col-1 ">
+            <a href="{% url 'trainer-home' %}" class="btn btn-primary btn btn-primary btn-lg btn-block">Back</a>
+        </div>
+        <div class="col-8 white-bg">
+            <ul class="d-flex flex-column">
+                    <li class="list-group-item">
+                        <img src="{{ program.image_url }}" alt="{{ program.name }}" style="max-width: 100px;">
+                    </li>
+                    <li class="list-group-item">
+                        <h4>program.name </h4>
+                        <p>Group Class:  program.group_class </p>
+                        <p>Trainer:  program.trainer_name </p>
+                        <p>program.description </p>
+                    </li>
+            </ul>
+            <ul class="d-flex flex-column">
+                    <li class="list-group-item">
+                        <img src="{{ program.image_url }}" alt="{{ program.name }}" style="max-width: 100px;">
+                    </li>
+                    <li class="list-group-item">
+                        <h4>program.name </h4>
+                        <p>Group Class:  program.group_class </p>
+                        <p>Trainer:  program.trainer_name </p>
+                        <p>program.description </p>
+                    </li>
+            </ul>
+        </div>
+        <div class="col-2" role="group">
+            <div class="vstack">
+                <a href="{% url 'trainer-add-program' %}" class="btn btn-success">Add New</a>
+                <button class="btn btn-danger" id="deleteButton">Delete Program</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
