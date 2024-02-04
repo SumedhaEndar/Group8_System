@@ -11,3 +11,4 @@ users/migrations/__pycache__/
 webpages/__pycache__/
 webpages/migrations/__pycache__/
 /db.sqlite3
+trainers/migrations/
