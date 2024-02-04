@@ -6,30 +6,17 @@
     <h2 style="font-weight: bold" class="text-center yellow-font">ADD FITNESS PROGRAM</h2>
 <br />
 
-<div class="container">
-    <div class="row">
-        <div class="col">
-            <form>
-                <div class="form-group input-group-lg" style="padding:10px;">
-                    <label for="ProgramName" class="form-label">Program Name</label>
-                    <input type="text" class="form-control" id="ProgramName">
-                </div>
 
-                <div class="form-group input-group-lg" style="padding:10px;">
-                    <label for="ProgramTime" class="form-label">Program Time</label>
-                    <input type="time" class="form-control" id="ProgramTime">
-                </div>
-
-                <div class="form-group input-group-lg" style="padding:10px;">
-                    <label for="ProgramPax" class="form-label">Program Pax</label>
-                    <input type="number" class="form-control" id="ProgramPax" min="1">
-                </div>
-                <div>
-                    <a href="#" class="btn btn-danger btn-lg" style="margin-right:120px;">Back</a>
-                    <button type="submit" class="btn btn-primary btn-lg">Submit</button>
-                </div>
-            </form>
-        </div>
+<div class="w-50 mx-auto mt-3 white-bg px-5 py-5 rounded-4">
+    <div class="d-flex flex-column align-items-center">
+        <form method="post" enctype="multipart/form-data" action="{% url 'trainer-add-program' %}">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <div>
+                <a href="#" class="btn btn-danger btn-lg" style="margin-right:120px;">Back</a>
+                <button type="submit" class="btn btn-primary">Create Program</button>
+            </div>
+        </form>
     </div>
 </div>
 
