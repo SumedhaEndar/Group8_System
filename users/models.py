@@ -25,6 +25,10 @@ class Trainer(models.Model):
     bmr = models.FloatField(blank=True, null=True)
     created_at = models.DateTimeField(default=timezone.now)
 
+    def __str__(self):
+        return self.full_name
+
+
 class Member(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True, related_name='member')
     full_name = models.CharField(max_length=100)

@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from users.decorators import trainer_required
 from users.models import Member, Admin, Trainer, User
+from trainers.models import FitnessProgram
 from .forms import FitnessProgramForm
 
 
@@ -36,11 +37,12 @@ def home(request):
 @login_required
 @trainer_required
 def program(request):
-    
+    fitness_programs = FitnessProgram.objects.all()
+  
     return render(
         request, 
         'trainers/trainer-program.html', 
-        {}
+        {'fitness_programs':fitness_programs}
     )
 
 

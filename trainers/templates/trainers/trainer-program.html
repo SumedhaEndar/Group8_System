@@ -11,28 +11,20 @@
             <a href="{% url 'trainer-home' %}" class="btn btn-primary btn btn-primary btn-lg btn-block">Back</a>
         </div>
         <div class="col-8 white-bg">
-            <ul class="d-flex flex-column">
+            {% for program in fitness_programs %} 
+                <ul class="d-flex justify-content-around pt-3">
                     <li class="list-group-item">
-                        <img src="{{ program.image_url }}" alt="{{ program.name }}" style="max-width: 100px;">
+                        <img src="{{ program.program_images.url }}" alt="{{ program.program_name }}" style="max-width: 300px;">
                     </li>
-                    <li class="list-group-item">
-                        <h4>program.name </h4>
-                        <p>Group Class:  program.group_class </p>
-                        <p>Trainer:  program.trainer_name </p>
-                        <p>program.description </p>
+                    <li class="list-group-item w-50" >
+                        <h4>{{ program.program_name }}</h4>
+                        <p>Trainer:  {{ program.trainer}} </p>
+                        <p>Day: {{ program.program_day}} </p>
+                        <p>Time: {{ program.program_time}} </p>
+                        <p>Price: RM{{ program.program_price}} </p>
                     </li>
-            </ul>
-            <ul class="d-flex flex-column">
-                    <li class="list-group-item">
-                        <img src="{{ program.image_url }}" alt="{{ program.name }}" style="max-width: 100px;">
-                    </li>
-                    <li class="list-group-item">
-                        <h4>program.name </h4>
-                        <p>Group Class:  program.group_class </p>
-                        <p>Trainer:  program.trainer_name </p>
-                        <p>program.description </p>
-                    </li>
-            </ul>
+                </ul>
+            {% endfor %}
         </div>
         <div class="col-2" role="group">
             <div class="vstack">

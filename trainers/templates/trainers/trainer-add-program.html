@@ -13,7 +13,7 @@
             {% csrf_token %}
             {{ form.as_p }}
             <div>
-                <a href="#" class="btn btn-danger btn-lg" style="margin-right:120px;">Back</a>
+                <a href="{% url 'trainer-program' %}" class="btn btn-danger btn-lg" style="margin-right:120px;">Back</a>
                 <button type="submit" class="btn btn-primary">Create Program</button>
             </div>
         </form>
