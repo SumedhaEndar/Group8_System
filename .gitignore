@@ -10,3 +10,4 @@ users/__pycache__/
 users/migrations/__pycache__/
 webpages/__pycache__/
 webpages/migrations/__pycache__/
+/db.sqlite3
