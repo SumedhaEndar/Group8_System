@@ -12,9 +12,11 @@ class FitnessProgramForm(forms.ModelForm):
         choices = FitnessProgram.DAYS_OF_WEEK,
         widget=forms.Select(attrs={'class': 'form-control', 'style': 'max-width: 400px;'})
     )
-    program_time = forms.CharField(
+    program_time = forms.ChoiceField(
         label='Program Time',
-        widget=forms.TextInput(attrs={'class': 'form-control', 'style': 'max-width: 400px;'})
+        choices= FitnessProgram.TIME,
+        initial='08:00',
+        widget=forms.Select(attrs={'class': 'form-control', 'style': 'max-width: 400px;'})
     )
     program_pax = forms.IntegerField(
         label='Program Pax',
@@ -33,3 +35,12 @@ class FitnessProgramForm(forms.ModelForm):
     class Meta:
         model = FitnessProgram
         fields = ['program_name', 'program_day', 'program_time', 'program_pax', 'program_price', 'program_images']
+
+class FitnessProgramEditForm(forms.ModelForm):
+    class Meta:
+        model = FitnessProgram
+        fields = ['program_day','program_time']
+        widgets = {
+            'program_day': forms.Select(attrs={'class': 'form-control', 'style': 'max-width: 400px;'}),
+            'program_time': forms.Select(attrs={'class': 'form-control', 'style': 'max-width: 400px;'}),
+        }
