@@ -7,9 +7,10 @@ class FitnessProgramForm(forms.ModelForm):
         label='Program Name',
         widget=forms.TextInput(attrs={'class': 'form-control', 'style': 'max-width: 400px;'})
     )
-    program_day = forms.CharField(
+    program_day = forms.ChoiceField(
         label='Program Day',
-        widget=forms.TextInput(attrs={'class': 'form-control', 'style': 'max-width: 400px;'})
+        choices = FitnessProgram.DAYS_OF_WEEK,
+        widget=forms.Select(attrs={'class': 'form-control', 'style': 'max-width: 400px;'})
     )
     program_time = forms.CharField(
         label='Program Time',
