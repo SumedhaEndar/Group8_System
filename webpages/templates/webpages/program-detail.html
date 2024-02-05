@@ -1,0 +1,27 @@
+{% extends "webpages/base.html" %}
+{% block content%}
+    <div class="text-center yellow-font mb-5">
+        <h1>{{program.program_name}}</h1>
+    </div>
+    <div class="d-flex justify-content-center">
+        <div class="card mb-3" style="max-width: 600px;">
+            <div class="row g-0">
+                <div class="col-md-6">
+                    <img src="{{ program.program_images.url }}" class="img-fluid rounded-start" alt="{{ program.program_name }}" style="height: 250px; object-fit: cover;">
+                </div>
+                <div class="col-md-6 d-flex align-items-center">
+                    <div class="card-body">
+                        <p class="card-text fw-bold">Trainer: {{program.trainer}}</p>
+                        <p class="card-text fw-bold">Day: {{program.program_day}}</p>
+                        <p class="card-text fw-bold">Time: {{program.program_time}}</p>
+                        <p class="card-text fw-bold">Pax: {{program.program_pax}}</p>
+                        <p class="card-text red-font fs-4 mt-2 fw-bold">RM {{program.program_price}}  &nbsp; <span class="fs-6 black-font">per package</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="mt-4 text-center">
+        <a href="{% url 'payment-page' program_type='fitness-program' program_id=program.program_id %}" class="btn btn-primary fw-bold" style="width: 300px;">Continue to Payment</a>
+    </div>
+{% endblock content%}
