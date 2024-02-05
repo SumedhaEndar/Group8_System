@@ -34,7 +34,7 @@
                 Outstanding Payment (RM)
             </td>
         </tr>
-        {% for member, email in member_datas %}
+        {% for member, email, outstanding_payment in member_payment_data %}
         <tr class="member-row">
             <td>
                 <a href="paymentnotification?member_user={{ member.user }}" class="member-name">
@@ -46,13 +46,13 @@
                     {{ member.full_name }}
                 </a>
             </td>
-            {% if member.outstanding_payment == 0 %}
+            {% if outstanding_payment == 0 %}
             <td style="background-color: lightgreen;">
-                {{member.outstanding_payment }}
+                {{ outstanding_payment }}
             </td>
             {% else %}
             <td style="background-color: lightcoral;">
-                {{member.outstanding_payment }}
+                {{ outstanding_payment }}
             </td>
             {% endif %}
         </tr>
