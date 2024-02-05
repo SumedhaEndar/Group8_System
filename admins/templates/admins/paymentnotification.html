@@ -1,0 +1,56 @@
+{% extends "admins/admin-base.html" %}
+{% block content %}
+
+<div class="admin-container">
+    <div class="back-btn">
+        <form class="" action='outstandingpayment' method='GET'>
+            <button type="submit">Back</button>
+        </form>
+    </div>
+    <div class="payment-notification-container">
+        <div class="payment-member-details">
+            <div>Member Name: {{ member.full_name }}</div>
+            <div>Member Email: {{ user.email }}</div>
+            <div>Outstanding Payment (RM): {{ member.outstanding_payment }}</div>
+        </div>
+        <div class="payment-notification-template">
+            <button
+                onclick="paymentNotificationTemplate('{{ member.full_name }}', '{{ member.outstanding_payment }}')">Use
+                Payment Notification Email Template</button>
+        </div>
+
+        <div class="send-message-container">
+            <form class="send-message-form" action="" method='POST'
+                onsubmit="return confirm('Are you sure you want to send this payment notification?')">
+                <input type="hidden" name="member_id" value="{{ member.id }}">
+                <div class="payment-notification-message">
+                    {% csrf_token %}
+                    <textarea name="notification_message" id="notification-message"
+                        placeholder="Please type the messages that you want to send..." required="true"></textarea>
+                </div>
+                <div class="submit-btn">
+                    <button type="submit">Send</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    window.addEventListener('load', function () {
+        document.getElementById('notification-message').value = '';
+    });
+
+    function paymentNotificationTemplate(memberName, outstandingPayment) {
+
+        var templateMessage = "Dear " + memberName + ",\n\n" + "We have noticed that your outstanding payment is RM"
+            + outstandingPayment + ".\n\n"
+            + "If you don't have any outstanding payment, please disregard this email.\n\n"
+            + "Please settle the outstanding payment as soon as possible to avoid any further action.\n\n"
+            + "Best regards,\n" + "Admin.";
+
+        document.getElementById('notification-message').value = templateMessage;
+    }
+</script>
+
+{% endblock %}
