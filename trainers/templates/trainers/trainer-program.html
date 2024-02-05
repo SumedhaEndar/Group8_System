@@ -14,22 +14,25 @@
             {% for program in fitness_programs %} 
                 <ul class="d-flex justify-content-around pt-3">
                     <li class="list-group-item">
-                        <img src="{{ program.program_images.url }}" alt="{{ program.program_name }}" style="max-width: 300px;">
+                        <a href="{% url 'trainer-program-detail' program.program_name %}">
+                            <img src="{{ program.program_images.url }}" alt="{{ program.program_name }}" style="max-width: 300px;">
+                        </a>
                     </li>
-                    <li class="list-group-item w-50" >
-                        <h4>{{ program.program_name }}</h4>
-                        <p>Trainer:  {{ program.trainer}} </p>
-                        <p>Day: {{ program.program_day}} </p>
-                        <p>Time: {{ program.program_time}} </p>
-                        <p>Price: RM{{ program.program_price}} </p>
+                    <li class="list-group-item w-50"1>
+                        <a href="{% url 'trainer-program-detail' program.program_name %}" style="text-decoration: none; color:black; display: block;">
+                            <h4 style="font-size: 30px;"><b>{{ program.program_name }}</b></h4>
+                            <p style="text-transform: uppercase">Trainer:  {{ program.trainer}} </p>
+                            <p>DAY: {{ program.program_day}} </p>
+                            <p>TIME: {{ program.program_time}} </p>
+                            <p>PRICE: RM{{ program.program_price}} </p>
+                        </a>
                     </li>
                 </ul>
             {% endfor %}
         </div>
         <div class="col-2" role="group">
-            <div class="vstack">
+            <div class="vstack btn-group btn-group-lg">
                 <a href="{% url 'trainer-add-program' %}" class="btn btn-success">Add New</a>
-                <button class="btn btn-danger" id="deleteButton">Delete Program</button>
             </div>
         </div>
     </div>

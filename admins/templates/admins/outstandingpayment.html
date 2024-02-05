@@ -1,0 +1,97 @@
+{% extends "admins/admin-base.html" %}
+{% block content %}
+
+<div class="admin-container">
+    {% if messages %}
+    {% for message in messages %}
+    {% if forloop.first %}
+    <div id="success-message" class="alert alert-success">
+        {{ message }}
+    </div>
+    {% endif %}
+    {% endfor %}
+    {% endif %}
+    <div class="back-btn">
+        <form class="" action='admin-home' method='GET'>
+            <button type="submit">Back</button>
+        </form>
+    </div>
+    <div class="search-bar">
+        <form class="search-form" action='' method='GET'>
+            <input type="text" id="search-input" placeholder="Search by Member Name" oninput="searchMembers()">
+            <button type="button" onclick="searchMembers()">Search</button>
+        </form>
+    </div>
+    <table class="outstanding-payment-table">
+        <tr>
+            <td>
+                No
+            </td>
+            <td>
+                Member Name
+            </td>
+            <td>
+                Outstanding Payment (RM)
+            </td>
+        </tr>
+        {% for member, email in member_datas %}
+        <tr class="member-row">
+            <td>
+                <a href="paymentnotification?member_user={{ member.user }}" class="member-name">
+                    {{ forloop.counter }}
+                </a>
+            </td>
+            <td>
+                <a href="paymentnotification?member_user={{ member.user }}" class="member-name">
+                    {{ member.full_name }}
+                </a>
+            </td>
+            {% if member.outstanding_payment == 0 %}
+            <td style="background-color: lightgreen;">
+                {{member.outstanding_payment }}
+            </td>
+            {% else %}
+            <td style="background-color: lightcoral;">
+                {{member.outstanding_payment }}
+            </td>
+            {% endif %}
+        </tr>
+        {% endfor %}
+    </table>
+
+</div>
+
+<script>
+    function searchMembers() {
+        // Get the search input value
+        var searchInput = document.getElementById('search-input').value.toLowerCase();
+
+        // Get all member name elements
+        var memberNames = document.querySelectorAll('.member-name');
+
+        // Loop through each member name element
+        memberNames.forEach(function (memberName) {
+            // Get the text content of the member name
+            var name = memberName.innerText.toLowerCase();
+
+            // Find the parent <td> element and then its parent <tr> element
+            var memberRow = memberName.closest('td').parentNode;
+
+            // Check if the search input matches the member name
+            if (name.includes(searchInput)) {
+                // Show the member row if it matches the search input
+                memberRow.style.display = 'table-row';
+            } else {
+                // Hide the member row if it doesn't match the search input
+                memberRow.style.display = 'none';
+            }
+        });
+    }
+
+    // Hide the success message after 5 seconds
+    setTimeout(function () {
+        document.getElementById('success-message').style.display = 'none';
+    }, 5000); // 5000 milliseconds = 5 seconds
+</script>
+
+{% endblock %}
