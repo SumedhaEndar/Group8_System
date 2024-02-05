@@ -1,0 +1,115 @@
+{% extends "admins/admin-base.html" %}
+{% block content %}
+
+<div class="admin-container">
+    <div class="back-btn">
+        <form class="" action='admin-home' method='GET'>
+            <button type="submit">Back</button>
+        </form>
+    </div>
+    <div class="search-bar">
+        <form class="search-form" action='' method='GET'>
+            <input type="text" id="search-input" placeholder="Search by Member Name" oninput="searchMembers()">
+            <button type="button" onclick="searchMembers()">Search</button>
+        </form>
+    </div>
+    <table>
+        <tr>
+            <td>
+                No
+            </td>
+            <td>
+                Member Name
+            </td>
+        </tr>
+        {% for member, email in member_datas %}
+        <tr class="member-row">
+            <td>
+                <a href="#" class="member-name"
+                    onclick="showMemberDetails('{{ member.user }}', '{{ member.full_name }}', '{{ member.phone }}', '{{ email }}')">
+                    {{ forloop.counter }}</a>
+            </td>
+            <td>
+                <a href="#" class="member-name"
+                    onclick="showMemberDetails('{{ member.user }}', '{{ member.full_name }}', '{{ member.phone }}', '{{ email }}')">
+                    {{ member.full_name }}</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    <div class="member-details" style="display: none;">
+        <div class="member-details-wrapper">
+            <div class="member-info">
+                <form class="" action="{% url 'edit_member' %}" method='POST'>
+                    {% csrf_token %}
+                    <input type="hidden" name="member_id" id="edit-member-id">
+                    <div>Name: <input type="text" name="member_name" id="edit-member-name" required="true"></div>
+                    <div>Phone Number: <input type="text" name="member_phone" id="edit-member-phone" required="true">
+                    </div>
+                    <div>Email: <input type="text" name="member_email" id="edit-member-email" required="true"></div>
+                    <button type="submit">Edit</button>
+                </form>
+            </div>
+            <div class="member-remove">
+                <form action="{% url 'remove_member' %}" method="POST"
+                    onsubmit="return confirm('Are you sure you want to remove this member?')">
+                    {% csrf_token %}
+                    <input type="hidden" name="remove_member_id" id="remove-member-id">
+                    <button type="submit">Remove</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    function showMemberDetails(memberUser, memberName, memberPhone, memberEmail) {
+
+        document.getElementById('edit-member-id').value = memberUser;
+        document.getElementById('remove-member-id').value = memberUser;
+        document.getElementById('edit-member-name').value = memberName;
+        document.getElementById('edit-member-phone').value = memberPhone;
+        document.getElementById('edit-member-email').value = memberEmail;
+
+        // Get the trainer details section
+        var memberDetails = document.querySelector('.member-details');
+
+        // Toggle the visibility of the trainer details section
+        if (memberDetails.style.display === 'block') {
+            memberDetails.style.display = 'none'; // Hide the trainer details
+        } else {
+            memberDetails.style.display = 'block'; // Show the trainer details
+        }
+    }
+
+    function searchMembers() {
+        // Get the search input value
+        var searchInput = document.getElementById('search-input').value.toLowerCase();
+
+        // Get all member name elements
+        var memberNames = document.querySelectorAll('.member-name');
+
+        // Loop through each member name element
+        memberNames.forEach(function (memberName) {
+            // Get the text content of the member name
+            var name = memberName.innerText.toLowerCase();
+
+            // Find the parent <td> element and then its parent <tr> element
+            var memberRow = memberName.closest('td').parentNode;
+
+            // Check if the search input matches the member name
+            if (name.includes(searchInput)) {
+                // Show the member row if it matches the search input
+                memberRow.style.display = 'table-row';
+            } else {
+                // Hide the member row if it doesn't match the search input
+                memberRow.style.display = 'none';
+            }
+        });
+    }
+
+
+</script>
+
+{% endblock %}

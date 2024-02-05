@@ -1,0 +1,124 @@
+{% extends "admins/admin-base.html" %}
+{% block content %}
+
+<div class="admin-container">
+    <div class="trainer-btn">
+        <form class="submit-form" action='admin-home' method='GET'>
+            <button type="submit" class="trainer-back-btn">Back</button>
+        </form>
+        <form class="" action='trainerapplication' method='GET'>
+            <button type="submit">Verify Trainer</button>
+        </form>
+    </div>
+    <div class="search-bar">
+        <form class="search-form" action='' method='GET'>
+            <input type="text" id="search-input" placeholder="Search by Trainer Name" oninput="searchTrainers()">
+            <button type="button" onclick="searchTrainers()">Search</button>
+        </form>
+    </div>
+    <table>
+        <tr>
+            <td>
+                No
+            </td>
+            <td>
+                Trainer Name
+            </td>
+        </tr>
+        {% for trainer, email in trainer_datas %}
+        <tr class="trainer-row">
+            <td>
+                <a href="#" class="trainer-name"
+                    onclick="showTrainerDetails('{{ trainer.user }}', '{{ trainer.full_name }}','{{ trainer.age }}', '{{ trainer.phone }}', '{{ email }}', '{{ trainer.bmi }}', '{{ trainer.bmr }}')">
+                    {{ forloop.counter }}</a>
+            </td>
+            <td>
+                <a href="#" class="trainer-name"
+                    onclick="showTrainerDetails('{{ trainer.user }}', '{{ trainer.full_name }}','{{ trainer.age }}', '{{ trainer.phone }}', '{{ email }}', '{{ trainer.bmi }}', '{{ trainer.bmr }}')">
+                    {{ trainer.full_name }}</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    <div class="trainer-details" style="display: none;">
+        <div class="trainer-details-wrapper">
+            <div class="trainer-info">
+                <form class="" action="{% url 'edit_trainer' %}" method='POST'>
+                    {% csrf_token %}
+                    <input type="hidden" name="trainer_id" id="edit-trainer-id">
+                    <div>Name: <input type="text" name="trainer_name" id="edit-trainer-name" required="true"></div>
+                    <div>Age: <input type="number" name="trainer_age" id="edit-trainer-age" required="true"></div>
+                    <div>Phone Number: <input type="text" name="trainer_phone" id="edit-trainer-phone" required="true">
+                    </div>
+                    <div>Email: <input type="text" name="trainer_email" id="edit-trainer-email" required="true"></div>
+                    <div>BMI: <input type="number" step="any" name="trainer_bmi" id="edit-trainer-bmi" required="true">
+                    </div>
+                    <div>BMR: <input type="number" step="any" name="trainer_bmr" id="edit-trainer-bmr" required="true">
+                    </div>
+                    <button type="submit">Edit</button>
+                </form>
+            </div>
+            <div class="trainer-remove">
+                <form action="{% url 'remove_trainer' %}" method="POST"
+                    onsubmit="return confirm('Are you sure you want to remove this trainer?')">
+                    {% csrf_token %}
+                    <input type="hidden" name="remove_trainer_id" id="remove-trainer-id">
+                    <button type="submit">Remove</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function showTrainerDetails(trainerUser, trainerName, trainerAge, trainerPhone, trainerEmail, trainerBmi, trainerBmr) {
+        // Update the content of the trainer details section
+        document.getElementById('edit-trainer-id').value = trainerUser;
+        document.getElementById('remove-trainer-id').value = trainerUser; // Set the remove-trainer-id value
+        document.getElementById('edit-trainer-name').value = trainerName;
+        document.getElementById('edit-trainer-age').value = trainerAge;
+        document.getElementById('edit-trainer-phone').value = trainerPhone;
+        document.getElementById('edit-trainer-email').value = trainerEmail;
+        document.getElementById('edit-trainer-bmi').value = trainerBmi;
+        document.getElementById('edit-trainer-bmr').value = trainerBmr;
+
+
+        // Get the trainer details section
+        var trainerDetails = document.querySelector('.trainer-details');
+
+        // Toggle the visibility of the trainer details section
+        if (trainerDetails.style.display === 'block') {
+            trainerDetails.style.display = 'none'; // Hide the trainer details
+        } else {
+            trainerDetails.style.display = 'block'; // Show the trainer details
+        }
+    }
+
+    function searchTrainers() {
+        // Get the search input value
+        var searchInput = document.getElementById('search-input').value.toLowerCase();
+
+        // Get all trainer name elements
+        var trainerNames = document.querySelectorAll('.trainer-name');
+
+        // Loop through each trainer name element
+        trainerNames.forEach(function (trainerName) {
+            // Get the text content of the trainer name
+            var name = trainerName.innerText.toLowerCase();
+
+            // Find the parent <td> element and then its parent <tr> element
+            var trainerRow = trainerName.closest('td').parentNode;
+
+            // Check if the search input matches the trainer name
+            if (name.includes(searchInput)) {
+                // Show the trainer row if it matches the search input
+                trainerRow.style.display = 'table-row';
+            } else {
+                // Hide the trainer row if it doesn't match the search input
+                trainerRow.style.display = 'none';
+            }
+        });
+    }
+</script>
+
+{% endblock %}
