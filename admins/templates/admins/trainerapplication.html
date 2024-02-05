@@ -12,7 +12,8 @@
         <div style="font-weight: bold; text-decoration: underline;">Trainer Application List</div>
         {% for trainer, email in trainer_datas %}
         <div class="trainer-application">
-            <a href="#" class="trainer-application-info" onclick="showTrainerApplicationDetails('{{ trainer.user }}')">
+            <a href="" class="trainer-application-info"
+                onclick="showTrainerApplicationDetails('{{ trainer.user }}', event)">
                 <div>{{ trainer.full_name }}</div>
                 <div>{{ trainer.created_at|date:"j F Y" }}</div>
                 <div>{{ trainer.created_at|time:"P" }}</div>
@@ -38,13 +39,15 @@
                     <form class="" action="{% url 'approve_trainer_application' %}" method='POST'
                         onsubmit="return confirm('Do you want to approve this trainer?')">
                         {% csrf_token %}
-                        <input type="hidden" name="applcation_trainer_id" id="application-trainer-id-{{ trainer.user }}">
+                        <input type="hidden" name="applcation_trainer_id"
+                            id="application-trainer-id-{{ trainer.user }}">
                         <button type="submit">Approve</button>
                     </form>
                     <form action="{% url 'reject_trainer_application' %}" method="POST"
                         onsubmit="return confirm('Are you sure you want to reject this trainer?')">
                         {% csrf_token %}
-                        <input type="hidden" name="reject_applcation_trainer_id" id="reject-application-trainer-id-{{ trainer.user }}">
+                        <input type="hidden" name="reject_applcation_trainer_id"
+                            id="reject-application-trainer-id-{{ trainer.user }}">
                         <button type="submit" class="reject-btn">Reject</button>
                     </form>
                 </div>
@@ -55,7 +58,9 @@
 </div>
 
 <script>
-    function showTrainerApplicationDetails(trainerApplicationUser) {
+    function showTrainerApplicationDetails(trainerApplicationUser, event) {
+
+        event.preventDefault(); // Prevent the default anchor link behavior
 
         document.getElementById('application-trainer-id-' + trainerApplicationUser).value = trainerApplicationUser;
         document.getElementById('reject-application-trainer-id-' + trainerApplicationUser).value = trainerApplicationUser;
