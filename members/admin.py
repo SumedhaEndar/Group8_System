@@ -6,4 +6,4 @@ class ProgramEnrollAdmin(admin.ModelAdmin):
     ordering = ('id',)
 
 # Register your models here.
-admin.site.register(ProgramEnroll)
+admin.site.register(ProgramEnroll, ProgramEnrollAdmin)
