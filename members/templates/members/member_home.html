@@ -1,28 +1,30 @@
 {% extends "webpages/base.html" %}
+{% load static %}
 {% block content %}
-    <body>
-        <div class="container-fluid d-flex flex-column" style="min-height: 100vh;">
-            <div class="row full-height flex-grow-1">
-                <div class="col-2 p-0">
-                    <div class="list-group custom-navbar">
-                        <a href="#" class="list-group-item list-group-item-action active" aria-current="true">
-                            <i class="fas fa-home"></i> Home
-                        </a>
-                        <a href="#" class="list-group-item list-group-item-action">
-                            <i class="fas fa-chart-line"></i> Progress
-                        </a>
-                        <a href="#" class="list-group-item list-group-item-action">
-                            <i class="fas fa-qrcode"></i> QR Code
-                        </a>
-                        <a href="#" class="list-group-item list-group-item-action">
-                            <i class="fas fa-user"></i> Account
-                        </a>
-                        <a href="#" class="list-group-item list-group-item-action">
-                            <i class="fas fa-sign-out-alt"></i> Logout
-                        </a>
-                    </div>
+    <div class="container-fluid">
+        <div class="row full-height">
+            <div class="col-2 p-0">
+                <div class="list-group custom-navbar">
+                    <a href="#" class="list-group-item list-group-item-action active" aria-current="true">
+                        <i class="fas fa-home"></i> Home
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action">
+                        <i class="fas fa-chart-line"></i> Progress
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action">
+                        <i class="fas fa-qrcode"></i> QR Code
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action">
+                        <i class="fas fa-user"></i> Account
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </a>
                 </div>
             </div>
+            <div class="col-9">
+                <h1 class="text-center mt-5">Welcome, Member</h1>
+            </div>
         </div>
-    </body>
+    </div>
 {% endblock content %}
