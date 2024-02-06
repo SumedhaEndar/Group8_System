@@ -62,3 +62,18 @@ def make_payment(request, program_type, program_id):
             subscription_model.objects.create(plan=program, member=Member.objects.get(user=request.user))
 
     return redirect('home') 
+
+@login_required
+@member_required
+def progress(request):
+    return render(request, 'members/member-progress.html', {})
+
+@login_required
+@member_required
+def qrcode(request):
+    return render(request, 'members/member-code.html', {})
+
+@login_required
+@member_required
+def account(request):
+    return render(request, 'members/member-account.html', {})
