@@ -37,9 +37,8 @@
     function redirectToTrainerProgram() {
         window.location.href = '{% url 'trainer-program'%}';
     }
-    {% comment %} 
     function redirectToTrainerTimetable() {
-        window.location.href = '{% url "trainerTimetable" %}';
-    } {% endcomment %}
+        window.location.href = '{% url 'trainer-timetable' %}';
+    } 
 </script>
 {% endblock content %}

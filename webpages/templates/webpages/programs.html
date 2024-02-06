@@ -1,11 +1,25 @@
 {% extends "webpages/base.html" %}
-
-{% block customCSS %}
-    {% load static %}
-    {% comment %} The link for your css files {% endcomment %}
-    {% comment %} <link rel="stylesheet" type="text/css" href="{% static 'webpages/css/thepage.css'%}"> {% endcomment %}
-{% endblock customCSS %}
-
 {% block content%}
-   <h1>Program Options</h1>
+    <div class="text-center yellow-font mb-5">
+        <h1>Program Options</h1>
+    </div>
+    <div class="container text-left w-100">
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 row-gap-5">
+            {% for program in programs%}
+            <div class="col">
+                <div class="card" style="width: 18rem;">
+                    <img src="{{ program.program_images.url }}" class="card-img-top" alt="{{ program.program_name }}" style="height: 200px; object-fit: cover;">
+                    <div class="card-body">
+                        <h5 class="card-title mb-3 fw-bold"> {{ program.program_name }} </h5>
+                        <p class="card-text">Trainer : {{program.trainer}}</p>
+                        <div class="d-flex align-items-center justify-content-between">
+                            <a href="{% url 'program-detail' program_id=program.program_id %}" class="btn btn-primary">Learn More</a>
+                            <p class="red-font fs-4 mt-2 fw-bold">RM {{program.program_price}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
 {% endblock content%}

@@ -1,0 +1,23 @@
+{% extends "trainers/trainer-base.html" %}
+{% block content %}
+
+{% load static %}
+<br/>
+    <h2 style="font-weight: bold" class="text-center yellow-font">EDIT TIME</h2>
+<br/>
+
+<div class="w-50 mx-auto mt-3 white-bg px-5 py-5 rounded-4">
+    <div class="d-flex flex-column align-items-center">
+        <form method="post" enctype="multipart/form-data" action="{% url 'trainer-edit-time' program_name=program.program_name %}">
+        <p style="font-weight: bold; font-size: 30px; text-align: center;">{{ program.program_name|upper }}</p>
+            {% csrf_token %}
+            {{ form.as_p }}
+            <div>
+                <a href="{% url 'trainer-timetable' %}" class="btn btn-danger btn-lg" style="margin-right:120px;">Back</a>
+                <button type="submit" class="btn btn-primary btn-lg">Change Time</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock content %}
