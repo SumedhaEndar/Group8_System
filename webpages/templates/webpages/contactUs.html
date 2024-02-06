@@ -1,11 +1,14 @@
 {% extends "webpages/base.html" %}
 
-{% block customCSS %}
-    {% load static %}
-    {% comment %} The link for your css files {% endcomment %}
-    {% comment %} <link rel="stylesheet" type="text/css" href="{% static 'webpages/css/thepage.css'%}"> {% endcomment %}
-{% endblock customCSS %}
-
 {% block content %}
-    <h1>Contact Us</h1>
+    <div class="w-25 mx-auto mt-4 white-bg px-5 pb-4 rounded-4">
+        <div class="d-flex flex-column"> 
+            <h1 class="my-4">Contact Us</h1>
+            <form method="post" action="{% url 'contact-us' %}">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <input type="submit" value="Submit" class="mt-2 mb-4 btn btn-primary">
+            </form>
+        </div>
+    </div>
 {% endblock content %}
