@@ -30,18 +30,16 @@
         <!-- Attendance List Section -->
         <div class="row mt-4">
             <div class="col-md-12">
-                <h3 style="color:yellow; font-weight: bold;">Attendance List</h3>
+                <h3 style="color: yellow; font-weight: bold;">Attendance List</h3>
                 <ul class="list-group">
-                    {% for attendance in program.attendance_set.all %}
+                    {% for enrollment in program.programenroll_set.all %}
                         <li class="list-group-item">
-                            {{ attendance.attendee.member_name }} - {{ attendance.attendance_date|date:"F d, Y" }}
-                            <label class="checkbox-inline">
-                                <input type="checkbox" {% if attendance.attended %}checked{% endif %} disabled> Attended
-                            </label>
+                            {{ enrollment.member.full_name|upper }} - {{ enrollment.member.phone}}
                         </li>
                     {% endfor %}
                 </ul>
             </div>
         </div>
+
     </div>
 {% endblock %}
