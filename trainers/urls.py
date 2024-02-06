@@ -7,4 +7,6 @@ urlpatterns = [
     path("add-program", views.add_program, name="trainer-add-program"),
     path('trainer-program-detail/<str:program_name>/', views.trainer_program_detail, name='trainer-program-detail'),
     path('delete-program/<str:program_name>/', views.delete_program, name='delete-program'),
+    path("trainer-timetable", views.trainer_timetable, name='trainer-timetable'),
+    path("edit-time/<str:program_name>", views.edit_time, name="trainer-edit-time"),
 ]
