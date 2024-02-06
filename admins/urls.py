@@ -14,5 +14,5 @@ urlpatterns = [
     path('reject_trainer_application', views.reject_trainer_application, name='reject_trainer_application'),
     path('outstandingpayment', views.outstandingpayment, name='outstandingpayment'),
     path('paymentnotification', views.paymentnotification, name='paymentnotification'),
-    # path('send_payment_notification/', views.sendpaymentnotification, name='send_payment_notification'),
+    path('send_payment_notification', views.sendpaymentnotification, name='send_payment_notification'),
 ]

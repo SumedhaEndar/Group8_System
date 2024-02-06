@@ -6,6 +6,39 @@
     {% comment %} <link rel="stylesheet" type="text/css" href="{% static 'webpages/css/thepage.css'%}"> {% endcomment %}
 {% endblock customCSS %}
 
-{% block content %}
-    <h1>Subscription Plans</h1>
-{% endblock content %}
+{% block content%}
+    <div class="text-center yellow-font mb-5">
+        <h1>Subscription Plans</h1>
+    </div>
+    <div class="container d-flex justify-content-center">
+      <div class="card mx-4" style="width: 20rem;">
+        <div class="card-body d-flex flex-column align-items-center gap-1">
+          <h3 class="card-title  fw-bold">Monthly</h3>
+          <p class="card-title fw-bold price-big-text ">RM 30</p>
+          <p class="card-text ">per person, per month</p>
+          <a href="{% url 'payment-page' program_type='subscription-plan' program_id=1 %}" class="d-block btn border-2 border-primary py-2" style="width: 75%;" role="button">Choose It</a>
+          <div class="separator-line"></div>
+          <div class="text-center mt-4">
+            <p class="card-text">Flexibility and Commitments</p>
+            <p class="card-text">Affordability and Control</p>
+            <p class="card-text">Access to Facilities and Services</p>
+          </div>
+        </div>
+      </div>
+      <div class="card mx-4" style="width: 20rem;">
+        <div class="card-body d-flex flex-column align-items-center gap-1">
+          <h3 class="card-title  fw-bold">Yearly</h3>
+          <p class="card-title fw-bold price-big-text ">RM 250</p>
+          <p class="card-text ">per person, per year</p>
+          <a href="{% url 'payment-page' program_type='subscription-plan' program_id=2 %}" class="d-block btn border-2 border-primary py-2" style="width: 75%;" role="button">Choose It</a>
+          <div class="separator-line"></div>
+          <div class="text-center mt-4">
+            <p class="card-text">Flexibility and Commitments</p>
+            <p class="card-text">Affordability and Control</p>
+            <p class="card-text">Access to Facilities and Services</p>
+            <p class="card-text">Save RM 120</p>
+          </div>
+        </div>
+      </div>
+    </div>
+{% endblock content%}

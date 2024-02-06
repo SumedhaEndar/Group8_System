@@ -1,0 +1,37 @@
+{% extends "webpages/base.html" %}
+{% block content %}
+    <div class="text-center yellow-font mb-5">
+        <h1>Payment</h1>
+    </div>
+    <div class="d-flex justify-content-center">
+        <div class="card border mb-3" style="width: 40rem;">
+            <div class="card-header border grey-bg fw-bold fs-4">Payment Info</div>
+            <div class="card-body">
+                {% if program.program_name %}
+                    <h5 class="card-title">Purchase: {{ program.program_name }}</h5>
+                    <h5 class="card-title">Price: RM {{ program.program_price }}</h5>
+                {% else %}
+                    <h5 class="card-title">Purchase: {{ program.name }}</h5>
+                    <h5 class="card-title">Price: RM {{ program.price }}</h5>
+                {% endif %}
+                <h5 class="card-title">Name: {{current_user.member.full_name}}</h5>
+            </div>
+            <div class="card-footer bg-transparent d-flex justify-content-end gap-2">
+                {% if program.program_name %}
+                    <a class="btn btn-secondary" role="button" href="{% url 'program-detail' program_id=program.pk %}">Cancel</a>
+                    <form action="{% url 'make-payment' program_type='fitness-program' program_id=program.pk %}" method="POST">
+                        {% csrf_token %}
+                        <input class="btn btn-primary" type="submit" value="Make a Payment">
+                    </form>
+                {% else %}
+                    <a class="btn btn-secondary" role="button" href="{% url 'plans' %}">Cancel</a>
+                    <form action="{% url 'make-payment' program_type='subscription-plan' program_id=program.pk %}" method="POST">
+                        {% csrf_token %}
+                        <input class="btn btn-primary" type="submit" value="Make a Payment">
+                    </form>
+                {% endif %}
+                
+            </div>
+        </div>
+    </div>
+{% endblock content %}

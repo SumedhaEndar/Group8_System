@@ -11,18 +11,18 @@
         <div class="payment-member-details">
             <div>Member Name: {{ member.full_name }}</div>
             <div>Member Email: {{ user.email }}</div>
-            <div>Outstanding Payment (RM): {{ member.outstanding_payment }}</div>
+            <div>Outstanding Payment (RM): {{ payment_notification.outstanding_payment }}</div>
         </div>
         <div class="payment-notification-template">
             <button
-                onclick="paymentNotificationTemplate('{{ member.full_name }}', '{{ member.outstanding_payment }}')">Use
+                onclick="paymentNotificationTemplate('{{ member.full_name }}', '{{ payment_notification.outstanding_payment }}')">Use
                 Payment Notification Email Template</button>
         </div>
 
         <div class="send-message-container">
-            <form class="send-message-form" action="" method='POST'
+            <form class="send-message-form" action="{% url 'send_payment_notification' %}" method='POST'
                 onsubmit="return confirm('Are you sure you want to send this payment notification?')">
-                <input type="hidden" name="member_id" value="{{ member.id }}">
+                <input type="hidden" name="member_id" value="{{ member.user }}">
                 <div class="payment-notification-message">
                     {% csrf_token %}
                     <textarea name="notification_message" id="notification-message"

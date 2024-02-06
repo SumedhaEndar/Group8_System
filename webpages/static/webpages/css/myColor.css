@@ -2,10 +2,33 @@
     color: #FDF261;
 }
 
+.red-font {
+    color: #e60d1b;
+}
+
+.black-font {
+    color: #000000;
+}
+
 .gray-bg {
     background-color: #505050;
 }
 
+.grey-bg {
+    background-color: #E7E5E5;
+}
+
 .white-bg {
     background-color: #ffffff;
+}
+
+.price-big-text {
+    font-size: 55px;
+}
+
+.seperator-line {
+    margin: 0rem 7.5rem 2.3rem 7.4rem;
+    width: calc(100% - 14.9rem);
+    height: 0.1rem;
+    background-color: #dddddd;
 }

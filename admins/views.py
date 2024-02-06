@@ -2,6 +2,11 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from users.decorators import admin_required
 from users.models import Member, Admin, Trainer, User
+from .models import PaymentNotification
+
+from django.contrib import messages
+from django.core.mail import send_mail
+from django.conf import settings
 
 @login_required
 @admin_required
@@ -170,11 +175,17 @@ def outstandingpayment(request):
     # Retrieve all records from the Member table
     member_data = Member.objects.all()
     member_datas = [(member, member.user.email) for member in member_data]
+
+    member_payment_data = []
+    for member, email in member_datas:
+        payment_notification = PaymentNotification.objects.get(user=member)
+        member_payment_data.append((member, email, payment_notification.outstanding_payment))
+
     return render(
         request,
         'admins/outstandingpayment.html',
         {
-            'member_datas': member_datas,
+            'member_payment_data': member_payment_data,
         }
     )
 
@@ -186,34 +197,40 @@ def paymentnotification(request):
         user = User.objects.get(username=member_user)
         member = Member.objects.get(user=user)
 
+        # Retrieve payment notification for the user
+        payment_notification = PaymentNotification.objects.get(user=member)
+
         return render(
             request,
             'admins/paymentnotification.html',
             {
                 'member': member,
                 'user': user,
+                'payment_notification': payment_notification,
             }
         )
     
-# def sendpaymentnotification(request):
-#     if request.method == 'POST':
-#         # Retrieve the member data
-#         member_id = request.POST.get('member_id')
-#         member = Member.objects.get(id=member_id)
+def sendpaymentnotification(request):
+    if request.method == 'POST':
+        # Retrieve the member data
+        member_user = request.POST.get('member_id')
 
-#         # Retrieve the notification message from the form
-#         notification_message = request.POST.get('notification_message')
+        user = User.objects.get(username=member_user)
+        member = Member.objects.get(user=user)
 
-#         # Send email
-#         send_mail(
-#             'Payment Notification',  # Subject
-#             notification_message,   # Message
-#             settings.EMAIL_HOST_USER,  # Sender's email address
-#             [member.email],  # Recipient's email address
-#             fail_silently=False,  # Raise an exception if email sending fails
-#         )
+        # Retrieve the notification message from the form
+        notification_message = request.POST.get('notification_message')
 
-#         messages.success(request, 'Payment notification sent successfully!')
+        # Send email
+        send_mail(
+            'Payment Notification',  # Subject
+            notification_message,   # Message
+            settings.EMAIL_HOST_USER,  # Sender's email address
+            [user.email],  # Recipient's email address
+            fail_silently=False,  # Raise an exception if email sending fails
+        )
 
-#         # Redirect to a success page or the same page
-#         return redirect('outstandingpayment')
+        messages.success(request, 'Payment notification sent successfully!')
+
+        # Redirect to a success page or the same page
+        return redirect('outstandingpayment')
