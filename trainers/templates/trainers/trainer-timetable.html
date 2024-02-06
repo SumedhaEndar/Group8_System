@@ -1,0 +1,27 @@
+{% extends "trainers/trainer-base.html" %}
+{% block content %}
+<div class="container">
+    <h1 class="mt-4 mb-4" style="color:white; font-weight: bold;">Trainer Timetable</h1>
+
+    {% for time_data in timetable_data %}
+        <div class="card mb-4">
+            <div class="card-header">
+                <h3>{{ time_data.time_label }}</h3>
+            </div>
+            <ul class="list-group list-group-flush">
+                {% for program in time_data.programs %}
+                    <li class="list-group-item">
+                        <p class="mb-1">Trainer Name: {{ program.trainer|upper}}</p>
+                        {{ program.program_name }} - {{ program.program_day }}
+                        <a href="{% url 'trainer-edit-time' program_name=program.program_name %}" class="btn btn-success" style="margin-left: 20px;">Edit</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endfor %}
+    
+    <div class="btn-group btn-group-justified" style="width: 100%; padding:12px;">
+        <a href="{% url 'trainer-home' %}" class="btn btn-primary btn-lg">Back</a>
+      </div>
+</div>
+{% endblock content %}
