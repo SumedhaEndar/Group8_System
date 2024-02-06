@@ -1,0 +1,10 @@
+.custom-card {
+    background-color: #fdf261;
+    font-family: 'Montserrat', 'Source Sans Pro', sans-serif;
+}
+.custom-card .card-title {
+    font-weight: bold;
+}
+.custom-card .card-text {
+    letter-spacing: 0.7px;
+}
