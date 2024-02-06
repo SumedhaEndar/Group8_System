@@ -16,7 +16,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('program_id', models.AutoField(primary_key=True, serialize=False)),
                 ('program_name', models.CharField(max_length=100)),
-                ('program_day', models.CharField(max_length=50)),
+                ('program_day', models.CharField(choices=[('MONDAY', 'Monday'), ('TUESDAY', 'Tuesday'), ('WEDNESDAY', 'Wednesday'), ('THURSDAY', 'Thursday'), ('FRIDAY', 'Friday'), ('SATURDAY', 'Saturday'), ('SUNDAY', 'Sunday')], default='Mon', max_length=20)),
                 ('program_time', models.CharField(max_length=50)),
                 ('program_pax', models.IntegerField()),
                 ('program_price', models.DecimalField(decimal_places=2, max_digits=10)),

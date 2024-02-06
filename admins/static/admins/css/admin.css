@@ -4,13 +4,41 @@
     font-size: 1.2em;
 }
 
+/* Common CSS */
+input,
+textarea {
+    max-width: 100%;
+}
+
+div {
+    word-wrap: break-word;
+}
+
+.back-btn button {
+    width: 8%;
+    margin: auto 15% 20px 15%;
+}
+
+.search-bar {
+    margin: auto auto 20px 15%;
+}
+
+.search-bar button {
+    width: 8%;
+}
+
+.search-bar input[type="text"] {
+    width: 74%;
+}
+
 /* Table CSS */
 .admin-container table {
     margin: auto;
     width: 70%;
 }
 
-.admin-container tr, td {
+.admin-container tr,
+td {
     border: 1px solid black;
     padding-left: 5px;
 }
@@ -21,17 +49,6 @@
 
 .admin-container tr:nth-child(1) {
     font-weight: bold;
-}
-
-/* Button CSS */
-.back-btn button {
-    width: 8%;
-    margin: auto auto 20px 15%;
-}
-
-.search-bar button{
-    width: 8%;
-    margin: auto auto 20px 15%;
 }
 
 /* Admin main page CSS */
@@ -68,7 +85,7 @@
 }
 
 /* Manage Member CSS */
-.member-details {
+.member-details-wrapper {
     display: grid;
     grid-template-columns: 85% 15%;
     margin: auto;
@@ -77,25 +94,43 @@
     padding: 5px 0 0 5px;
 }
 
-.member-details-btn button{
-    width: 70%;
-    margin: 10px auto 10px auto;
+.member-info button {
+    width: 12%;
+    margin: 10px auto 15px 120px;
+}
+
+.member-info div {
+    margin-bottom: 10px;
+}
+
+.member-info input[type="text"] {
+    background-color: lightgray;
+}
+
+.member-remove {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.member-remove button {
+    width: 100%;
 }
 
 /* Manage Trainer CSS */
-.trainer-back-btn {
-    margin: auto auto 10px 15%;
+.trainer-btn {
+    margin: auto auto 20px 15%;
 }
 
-.trainer-back-btn form{
+.trainer-btn form {
     display: inline-block;
 }
 
-.submit-form button {
-    width: 90px;
+.trainer-back-btn {
+    padding: 1px 1.6em;
 }
 
-.trainer-details {
+.trainer-details-wrapper {
     display: grid;
     grid-template-columns: 85% 15%;
     margin: auto;
@@ -104,10 +139,28 @@
     padding: 5px 0 0 5px;
 }
 
-.trainer-details-btn {
+.trainer-info button {
+    width: 12%;
+    margin: 10px auto 15px 120px;
+}
+
+.trainer-info div {
+    margin-bottom: 10px;
+}
+
+.trainer-info input[type="text"],
+input[type="number"] {
+    background-color: lightgray;
+}
+
+.trainer-remove {
     display: flex;
-    align-items: center;
     justify-content: center;
+    align-items: center;
+}
+
+.trainer-remove button {
+    width: 100%;
 }
 
 /* Trainer Application CSS */
@@ -124,12 +177,36 @@
     padding: 2% 0;
 }
 
+.trainer-application-info {
+    display: grid;
+    grid-template-columns: 33.33% 33.33% 33.33%;
+    grid-column-gap: 5px;
+    text-align: center;
+}
+
+.trainer-application-data {
+    margin: 3% 10%;
+}
+
+.trainer-application-data div {
+    margin-bottom: 1%;
+}
+
 .trainer-certificate {
     display: flex;
     justify-content: center;
     align-items: center;
     background-color: white;
     margin: 3% 10%;
+}
+
+.trainer-certificate a {
+    padding: 20px 0;
+}
+
+.trainer-certificate img {
+    max-width: 620px;
+    padding: 5px 0;
 }
 
 .trainer-message-field {
@@ -148,16 +225,20 @@
 }
 
 .trainer-application-btn .reject-btn {
-    padding: 2% 40%;
+    padding: 0 15px;
 }
 
 /* View Outstanding Payment CSS */
-.outstanding-payment-table tr:nth-child(2){
+.outstanding-payment-table tr:nth-child(2) {
     width: 60%;
 }
 
-.outstanding-payment-table td:nth-child(2){
+.outstanding-payment-table td:nth-child(2) {
     width: 60%;
+}
+
+#success-message {
+    margin: auto 15% 20px 15%;
 }
 
 /* Payment Notification CSS */
@@ -167,17 +248,35 @@
     padding: 1%;
 }
 
-.payment-notification-message {
-    background-color: white;
-    margin: 5% auto 2% auto;
+.payment-notification-template {
+    margin-top: 10px;
 }
 
-.payment-notification-container .send-btn {
+.payment-notification-message {
+    margin: 3% auto 2% auto;
+}
+
+.send-message-container {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.send-btn button {
-    padding: 2px 25px;
+.send-message-container form,
+textarea {
+    width: 100%;
+}
+
+.send-message-container textarea {
+    height: 300px;
+}
+
+.send-message-container .submit-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.send-message-container button {
+    padding: 0 20px;
 }

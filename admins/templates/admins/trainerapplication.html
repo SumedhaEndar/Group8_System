@@ -1,0 +1,79 @@
+{% extends "admins/admin-base.html" %}
+{% block content %}
+{% load static %}
+
+<div class="admin-container">
+    <div class="back-btn">
+        <form class="" action='managetrainer' method='GET'>
+            <button type="submit">Back</button>
+        </form>
+    </div>
+    <div class="trainer-application-list">
+        <div style="font-weight: bold; text-decoration: underline;">Trainer Application List</div>
+        {% for trainer, email in trainer_datas %}
+        <div class="trainer-application">
+            <a href="" class="trainer-application-info"
+                onclick="showTrainerApplicationDetails('{{ trainer.user }}', event)">
+                <div>{{ trainer.full_name }}</div>
+                <div>{{ trainer.created_at|date:"j F Y" }}</div>
+                <div>{{ trainer.created_at|time:"P" }}</div>
+            </a>
+            <div id="trainer-application-details-{{ trainer.user }}" class="trainer-application-details"
+                style="display: none;">
+                <div class="trainer-application-data">
+                    <div>Trainer Name: {{ trainer.full_name }}</div>
+                    <div>Age: {{ trainer.age }}</div>
+                    <div>Phone Number: {{ trainer.phone }}</div>
+                    <div>Email: {{ email }}</div>
+                    <div>BMI: {{ trainer.bmi }}</div>
+                    <div>BMR: {{ trainer.bmr }}</div>
+                </div>
+                <div class="trainer-certificate">
+                    <img src="{{ trainer.trainer_certificate.url }}" alt="Trainer Certificate"
+                        class="trainer-certificate-picture">
+                </div>
+                <!-- <div class="trainer-message-field">
+                    <div class="trainer-message" id="trainer-application-message">{{ trainerapplication.message }}</div>
+                </div> -->
+                <div class="trainer-application-btn">
+                    <form class="" action="{% url 'approve_trainer_application' %}" method='POST'
+                        onsubmit="return confirm('Do you want to approve this trainer?')">
+                        {% csrf_token %}
+                        <input type="hidden" name="applcation_trainer_id"
+                            id="application-trainer-id-{{ trainer.user }}">
+                        <button type="submit">Approve</button>
+                    </form>
+                    <form action="{% url 'reject_trainer_application' %}" method="POST"
+                        onsubmit="return confirm('Are you sure you want to reject this trainer?')">
+                        {% csrf_token %}
+                        <input type="hidden" name="reject_applcation_trainer_id"
+                            id="reject-application-trainer-id-{{ trainer.user }}">
+                        <button type="submit" class="reject-btn">Reject</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<script>
+    function showTrainerApplicationDetails(trainerApplicationUser, event) {
+
+        event.preventDefault(); // Prevent the default anchor link behavior
+
+        document.getElementById('application-trainer-id-' + trainerApplicationUser).value = trainerApplicationUser;
+        document.getElementById('reject-application-trainer-id-' + trainerApplicationUser).value = trainerApplicationUser;
+
+        // Show the details section of the clicked trainer application
+        var trainerApplicationDetails = document.getElementById('trainer-application-details-' + trainerApplicationUser);
+
+        if (trainerApplicationDetails.style.display === 'block') {
+            trainerApplicationDetails.style.display = 'none'; // Hide the trainer details
+        } else {
+            trainerApplicationDetails.style.display = 'block'; // Show the trainer details
+        }
+    }
+</script>
+
+{% endblock %}

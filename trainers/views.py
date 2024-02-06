@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from users.decorators import trainer_required
 from users.models import Member, Admin, Trainer, User
@@ -129,3 +130,22 @@ def trainer_timetable(request):
 #         timetable_data.append({'day': day, 'programs': programs})
 
 #     return render(request, 'trainers/trainer-timetable.html', {'timetable_data': timetable_data})
+
+@login_required
+@trainer_required
+def trainer_program_detail(request, program_name):
+    program = get_object_or_404(FitnessProgram, program_name=program_name)
+    return render(request, 'trainers/trainer-program-detail.html', {'program': program})
+
+@login_required
+@trainer_required
+def delete_program(request, program_name):
+    program = get_object_or_404(FitnessProgram, program_name=program_name)
+    
+    if request.method == 'POST':
+        # Delete the program
+        program.delete()
+        messages.success(request, f'The program "{program_name}" has been deleted.')
+        return redirect('trainer-program')
+
+    return redirect('trainers/trainer_programDetail', program_name=program_name)
