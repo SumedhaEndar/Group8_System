@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from trainers.models import FitnessProgram
 from .forms import ContactForm
-from .models import ContactSubmission
+from .models import ContactSubmission, Plan
 # Create your views here.
 
 def home(request):
@@ -16,7 +16,8 @@ def program_detail(request, program_id):
     return render(request, 'webpages/program-detail.html', {'program':program})
 
 def plans(request):
-    return render(request, 'webpages/plans.html', {})
+    plan = Plan.objects.all()
+    return render(request, 'webpages/plans.html', {'plan':plan})
 
 def fitnessLocator(request):
     return render(request, 'webpages/fitnessLocator.html', {})
