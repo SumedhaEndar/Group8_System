@@ -1,12 +1,10 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from users.decorators import trainer_required
 from users.models import Member, Admin, Trainer, User
 from trainers.models import FitnessProgram
 from .forms import FitnessProgramForm, FitnessProgramEditForm
 from django.contrib import messages
-from django.http import HttpRequest
 
 @login_required
 @trainer_required
@@ -56,7 +54,7 @@ def add_program(request):
             fitness_program = form.save(commit=False)
             fitness_program.trainer = Trainer.objects.get(user=request.user)
             fitness_program.save()
-            return redirect('trainer-program')  # Replace 'success_url' with your desired success URL
+            return redirect('trainer-program') 
     else:
         form = FitnessProgramForm()
 
@@ -119,32 +117,3 @@ def trainer_timetable(request):
         timetable_data.append({'time_slot': time_slot, 'time_label': time_label, 'programs': programs})
 
     return render(request, 'trainers/trainer-timetable.html', {'timetable_data': timetable_data})
-
-# def trainer_timetable(request):
-#     days_of_week = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
-#     timetable_data = []
-
-#     for day in days_of_week:
-#         programs = FitnessProgram.objects.filter(program_day=day).order_by('program_time')
-#         timetable_data.append({'day': day, 'programs': programs})
-
-#     return render(request, 'trainers/trainer-timetable.html', {'timetable_data': timetable_data})
-
-@login_required
-@trainer_required
-def trainer_program_detail(request, program_name):
-    program = get_object_or_404(FitnessProgram, program_name=program_name)
-    return render(request, 'trainers/trainer-program-detail.html', {'program': program})
-
-@login_required
-@trainer_required
-def delete_program(request, program_name):
-    program = get_object_or_404(FitnessProgram, program_name=program_name)
-    
-    if request.method == 'POST':
-        # Delete the program
-        program.delete()
-        messages.success(request, f'The program "{program_name}" has been deleted.')
-        return redirect('trainer-program')
-
-    return redirect('trainers/trainer_programDetail', program_name=program_name)
