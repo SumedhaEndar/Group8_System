@@ -81,6 +81,7 @@ class MemberSignUpForm(UserCreationForm):
         widget=forms.EmailInput(attrs={'class': 'form-control', 'style': 'max-width: 400px;'})
     )
     full_name = forms.CharField(
+        required=True,
         label='Full Name',
         widget=forms.TextInput(attrs={'class': 'form-control', 'style': 'max-width: 400px;'})
     )
@@ -95,7 +96,7 @@ class MemberSignUpForm(UserCreationForm):
     phone = forms.CharField(
         label='Phone Number',
         max_length=15,
-        required=False,
+        required=True,
         widget=forms.TextInput(attrs={'class': 'form-control', 'style': 'max-width: 400px;'})
     )
     username = forms.CharField(
