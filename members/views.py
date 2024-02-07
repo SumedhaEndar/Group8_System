@@ -8,9 +8,12 @@ from webpages.models import Plan
 
 @login_required
 @member_required
-# Create your views here.
 def home(request):
-    return render(request, 'members/member_home.html', {})
+    
+    member = request.user.member  
+    member.plan_subscriptions = PlanSubscribe.objects.filter(member=member) 
+    member.program_enrollments = ProgramEnroll.objects.filter(member=member) 
+    return render(request, 'members/member_home.html', {'member': member})
 
 @login_required
 @member_required
