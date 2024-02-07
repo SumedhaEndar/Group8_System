@@ -1,4 +1,9 @@
 {% extends "members/member-base.html" %}
 {% block content %}
    <h1 class="text-center yellow-font">Barcode</h1>
+   <div class="white-bg d-flex w-50 justify-content-center mx-auto mt-5">
+      <p style="font-family: 'Libre Barcode 39 Extended Text', system-ui;" class="fs-1 mt-3">
+         {{ member_username }}
+      </p>
+   </div>
 {% endblock content %}

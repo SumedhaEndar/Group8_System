@@ -74,7 +74,8 @@ def progress(request):
 @login_required
 @member_required
 def qrcode(request):
-    return render(request, 'members/member-code.html', {})
+    member_username = request.user.username
+    return render(request, 'members/member-code.html', {"member_username": member_username})
 
 @login_required
 @member_required
