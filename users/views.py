@@ -55,5 +55,7 @@ class LoginView(auth_views.LoginView):
                 return reverse('trainer-home')
             elif user.is_admin:
                 return reverse('admin-home')
+            elif user.is_counter:
+                return reverse('counter-home')
         else:
             return reverse('login')

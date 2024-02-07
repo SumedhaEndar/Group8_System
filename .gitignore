@@ -12,3 +12,5 @@ webpages/__pycache__/
 webpages/migrations/
 media/
 db.sqlite3
+counters/__pycache__/
+counters/migrations/
