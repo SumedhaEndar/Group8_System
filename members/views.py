@@ -5,6 +5,9 @@ from trainers.models import FitnessProgram
 from users.models import Member, Admin, Trainer, User
 from .models import ProgramEnroll, PlanSubscribe
 from webpages.models import Plan
+from .forms import MemberUpdateForm, PasswordUpdateForm
+from django.contrib import messages
+from django.contrib.auth import authenticate, update_session_auth_hash
 
 @login_required
 @member_required
@@ -74,9 +77,42 @@ def progress(request):
 @login_required
 @member_required
 def qrcode(request):
-    return render(request, 'members/member-code.html', {})
+    member_username = request.user.username
+    return render(request, 'members/member-code.html', {"member_username": member_username})
 
 @login_required
 @member_required
 def account(request):
-    return render(request, 'members/member-account.html', {})
+    member = request.user.member  # Retrieve the member object associated with the current user
+    profile_form = MemberUpdateForm(instance=member)
+    if request.method == 'POST':
+        if 'update_profile' in request.POST:
+            profile_form = MemberUpdateForm(request.POST, instance=member)
+            if profile_form.is_valid():
+                profile_form.save()
+                messages.success(request, 'Profile updated successful')
+                return redirect('member-account')  # Redirect to a view that displays member details
+        elif 'update_password' in request.POST:
+            password_form = PasswordUpdateForm(request.POST)
+            if password_form.is_valid():
+                c_password = password_form.cleaned_data['current_password']
+                new_password = password_form.cleaned_data['new_password']
+                r_new_password = password_form.cleaned_data['retype_new_password']
+                user = authenticate(username=request.user.username, password=c_password)
+                if user is not None:
+                    if new_password == r_new_password:
+                        user.set_password(new_password)
+                        user.save()
+                        update_session_auth_hash(request, user)  # Important to keep the user logged in
+                        messages.success(request, 'Password updated successfully')
+                        return redirect('member-account')
+                    else:
+                        messages.error(request, 'Passwords do not match.')
+                else:
+                    messages.error(request, 'Incorrect current password.')
+            else:
+                messages.error(request, 'Password update failed. Please correct the errors.')
+    else:
+        profile_form = MemberUpdateForm(instance=member)
+        password_form = PasswordUpdateForm()
+    return render(request, 'members/member-account.html', {'profile_form': profile_form, 'password_form': password_form})

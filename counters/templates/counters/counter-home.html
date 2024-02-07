@@ -1,0 +1,32 @@
+{% extends "counters/counter-base.html" %}
+{% block content %}
+   <h1 class="text-center yellow-font">Verify Member</h1>
+   {% comment %} <form method="GET" action="{% url 'search' %}"> {% endcomment %}
+   <form method="GET" action="{% url 'counter-home' %}" class=" mt-4 mb-5">
+        <div class="input-group w-50 mx-auto">
+            <input type="text" class="form-control" id="username" name="username" value="{{ query }}"/>
+            <button type="submit" class="btn btn-primary">Search</button>
+        </div>
+    </form>
+    <div class="d-flex flex-column align-items-center gap-4">
+        {% for member in members %}
+            {% for subscription in member.plan_subscriptions %}
+            <div class="card" style="width: 18rem;">
+                <div class="card-body py-4">
+                    <h5 class="card-title mb-4">{{ subscription.plan.name }} Plan</h5>
+                    <h6 class="card-subtitle mb-2 text-body-secondary">Valid: {{ subscription.valid_from|date:"j/n/Y" }} - {{ subscription.valid_until|date:"j/n/Y" }}</h6>
+                </div>
+            </div>
+            {% endfor %}
+
+            {% for enrollment in member.program_enrollments %}
+            <div class="card" style="width: 18rem;">
+                <div class="card-body py-4">
+                    <h5 class="card-title mb-4">{{ enrollment.program.program_name }} ({{ enrollment.left}} Coruses)</h5>
+                    <h6 class="card-subtitle mb-2 text-body-secondary">Left {{ enrollment.left }} Courses</h6>
+                </div>
+            </div>
+            {% endfor %}
+        {% endfor %}
+    </div>
+{% endblock content %}
