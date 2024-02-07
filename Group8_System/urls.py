@@ -31,6 +31,7 @@ urlpatterns = [
     path("trainers/", include("trainers.urls")),
     path("members/", include("members.urls")),
     path("admins/", include("admins.urls")),
+    path("counters/", include("counters.urls")),
 ] 
 
 if settings.DEBUG:
