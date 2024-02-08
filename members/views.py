@@ -8,14 +8,22 @@ from webpages.models import Plan
 from .forms import MemberUpdateForm, PasswordUpdateForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, update_session_auth_hash
+from datetime import datetime, timedelta
 
 @login_required
 @member_required
 def home(request):
-    
     member = request.user.member  
-    member.plan_subscriptions = PlanSubscribe.objects.filter(member=member) 
+    plan_subscriptions = PlanSubscribe.objects.filter(member=member)
+
+    for subscription in plan_subscriptions:
+        if not subscription.valid_until:
+            subscription.valid_until = datetime.now() + timedelta(days=30)
+            subscription.save()
+
+    member.plan_subscriptions = plan_subscriptions
     member.program_enrollments = ProgramEnroll.objects.filter(member=member) 
+
     return render(request, 'members/member_home.html', {'member': member})
 
 @login_required
