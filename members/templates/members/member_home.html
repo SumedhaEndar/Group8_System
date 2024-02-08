@@ -1,4 +1,24 @@
 {% extends "members/member-base.html" %}
 {% block content %}
-   <h1 class="text-center yellow-font">Home</h1>
+   <h1 class="text-center yellow-font mb-custom" style="margin-bottom: 100px;">Home</h1>
+
+    <div class="d-flex flex-column align-items-center gap-4">
+        {% for subscription in member.plan_subscriptions %}
+        <div class="card" style="width: 18rem;">
+            <div class="card-body py-4">
+                <h5 class="card-title mb-4">{{ subscription.plan.name }} Plan</h5>
+                <h6 class="card-subtitle mb-2 text-body-secondary">Valid: {{ subscription.valid_from|date:"j/n/Y" }} - {{ subscription.valid_until|date:"j/n/Y" }}</h6>
+            </div>
+        </div>
+        {% endfor %}
+
+        {% for enrollment in member.program_enrollments %}
+        <div class="card" style="width: 18rem;">
+            <div class="card-body py-4">
+                <h5 class="card-title mb-4">{{ enrollment.program.program_name }} ({{ enrollment.left}} Courses)</h5>
+                <h6 class="card-subtitle mb-2 text-body-secondary">Left {{ enrollment.left }} Courses</h6>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
 {% endblock content %}

@@ -1,11 +1,86 @@
 {% extends "webpages/base.html" %}
-
-{% block customCSS %}
-    {% load static %}
-    {% comment %} The link for your css files {% endcomment %}
-    {% comment %} <link rel="stylesheet" type="text/css" href="{% static 'webpages/css/thepage.css'%}"> {% endcomment %}
-{% endblock customCSS %}
-
+{% load static %}
 {% block content %}
-    <h1>Find a Gym</h1>
+<link rel="stylesheet" type="text/css" href="{% static 'webpages/css/fitnessLocator.css' %}" />
+    <div class="text-center yellow-font mb-5">
+        <h1>Find a Gym</h1>
+    </div>
+    <div class="container card-container">
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="card custom-card">
+                    <div class="card-body">
+                        <h5 class="card-title">EnerGym Cyberjaya</h5>
+                        <p class="card-text">
+                            <a href="https://www.energym.com.my/" class="text-decoration-none text-dark">
+                                Lot 16-4, Galleria Cyberjaya, Jalan Teknokrat 6, Cyber 5, 63000 Cyberjaya, Selangor
+                            </a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card custom-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Anytime Fitness Tamarind Square</h5>
+                        <p class="card-text">
+                            <a href="https://www.anytimefitness.my/gyms/my-0035/tamarind-square-selangor-63000/" class="text-decoration-none text-dark">
+                                Lot 3M-01, Level 3M, Tamarind Square, Persiaran Multimedia, 63000 Cyberjaya, Selangor
+                            </a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card custom-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Kinofit Yoga & Fitness</h5>
+                        <p class="card-text">
+                            <a href="https://www.kinofit.my/" class="text-decoration-none text-dark">
+                                A-04-08, Tamarind Square, Persiaran Multimedia, Cyberjaya, 63000 Cyberjaya, Selangor
+                            </a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="card custom-card">
+                    <div class="card-body">
+                        <h5 class="card-title">SheFights Gym</h5>
+                        <p class="card-text">
+                            <a href="https://shefights.my/" class="text-decoration-none text-dark">
+                                D2-05-06, Tamarind Square, Tamarind Bldg Rd, Cyberjaya, 63000 Cyberjaya, Selangor
+                            </a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card custom-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Musclehub</h5>
+                        <p class="card-text">
+                            <a href="https://musclehub.com/" class="text-decoration-none text-dark">
+                                FR-04-05, Tamarind Suites, Persiaran Multimedia, Cyberjaya, 63000 Cyberjaya, Selangor
+                            </a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card custom-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Celebrity Fitness - Dpulze</h5>
+                        <p class="card-text">
+                            <a href="https://www.celebrityfitness.com.my/" class="text-decoration-none text-dark">
+                                SF02/03, 2nd Floor DPulze Shopping Centre, Persiaran Multimedia, Cyberjaya, 63000 Cyberjaya, Selangor
+                            </a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock content %}

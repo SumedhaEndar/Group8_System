@@ -1,4 +1,112 @@
 {% extends "members/member-base.html" %}
 {% block content %}
-   <h1 class="text-center yellow-font">Progress</h1>
+<style>
+   label {
+       font-weight: bold;
+   }
+</style>
+   <h1 class="text-center yellow-font mb-4">Progress</h1>
+   <div class="container">
+      <div class="row justify-content-center">
+         <div class="col-lg-6">
+            <div class="card mb-4">
+               <div class="card-header">
+                  <h5 class="card-title">Fill up the form to obtain BMI/BMR results :</h5>
+               </div>
+               <div class="card-body">
+                  <form id="progressForm">
+                     <div class="form-group mb-3">
+                        <label for="age" class="mb-1">Age</label>
+                        <input type="number" class="form-control" id="age" required>
+                     </div>
+                     <div class="form-group mb-3">
+                        <label for="gender" class="mb-1">Gender</label>
+                        <select class="form-control" id="gender" required>
+                           <option value="" disabled selected>Choose gender</option>
+                           <option value="male">Male</option>
+                           <option value="female">Female</option>
+                        </select>
+                     </div>
+                     <div class="form-group mb-3">
+                        <label for="height" class="mb-1">Height (in cm)</label>
+                        <input type="number" class="form-control" id="height" required>
+                     </div>
+                     <div class="form-group mb-3">
+                        <label for="weight" class="mb-1">Weight (in kg)</label>
+                        <input type="number" class="form-control" id="weight" required>
+                     </div>
+                     <div class="form-group text-center">
+                        <button type="submit" class="btn btn-primary mt-3">Calculate</button>
+                     </div>
+                  </form>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="row justify-content-center">
+         <div class="col-lg-6">
+            <div class="card">
+               <div class="card-header">
+                  <h5 class="card-title">Results :</h5>
+               </div>
+               <div class="card-body" id="results">
+                  <p>BMI: <span id="bmi"></span></p>
+                  <p>BMR: <span id="bmr"></span></p>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+   <div class="modal fade" id="resultModal" tabindex="-1" role="dialog" aria-labelledby="resultModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+         <div class="modal-content">
+            <div class="modal-header">
+               <h5 class="modal-title" id="resultModalLabel">BMI/BMR Result</h5>
+               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+               </button>
+            </div>
+            <div class="modal-body" id="resultModalBody">
+               <!-- Result text will be inserted here -->
+            </div>
+         </div>
+      </div>
+   </div>
+   <script>
+      document.getElementById('progressForm').addEventListener('submit', function(e) {
+         e.preventDefault();
+         var age = parseInt(document.getElementById('age').value);
+         var gender = document.getElementById('gender').value;
+         var height = parseInt(document.getElementById('height').value);
+         var weight = parseInt(document.getElementById('weight').value);
+         var bmi = (weight / ((height / 100) ** 2)).toFixed(2);
+         var bmr;
+         if (gender === 'male') {
+            bmr = (10 * weight) + (6.25 * height) - (5 * age) + 5;
+         } else {
+            bmr = (10 * weight) + (6.25 * height) - (5 * age) - 161;
+         }
+         document.getElementById('bmi').textContent = bmi;
+         document.getElementById('bmr').textContent = bmr.toFixed(2);
+
+         var resultText;
+         if (bmi < 18.5) {
+            resultText = 'You are underweight! Eat more!';
+         } else if (bmi >= 18.5 && bmi < 25) {
+            resultText = 'You are healthy! Keep it up!';
+         } else if (bmi >= 25 && bmi < 30) {
+            resultText = 'You are overweight! Exercise more!';
+         } else {
+            resultText = 'You are obese! Watch your diet and exercise more!';
+         }
+         document.getElementById('resultModalBody').textContent = resultText;
+         $('#resultModal').modal('show');
+      });
+
+      $('#resultModal').on('hidden.bs.modal', function (e) {
+         document.getElementById('progressForm').reset();
+         document.getElementById('bmi').textContent = '';
+         document.getElementById('bmr').textContent = '';
+      });
+   </script>
 {% endblock content %}

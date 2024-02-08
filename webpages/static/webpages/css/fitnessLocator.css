@@ -1,0 +1,14 @@
+.custom-card {
+    background-color: #FDF261;
+    min-height: 150px;
+}
+.custom-card .card-title,
+.custom-card .card-text {
+    font-family: 'Montserrat', 'Source Sans Pro', sans-serif;
+}
+.custom-card .card-title {
+    font-weight: bold;
+}
+.card-container {
+margin-top: 100px; 
+}
